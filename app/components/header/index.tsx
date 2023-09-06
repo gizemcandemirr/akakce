@@ -20,12 +20,12 @@ const Header = (props: Props) => {
   const [isSearchFocused, setSearchFocused] = useState(false);
   return (
     <div
-      className={`flex items-center px-36 h-16 bg-white ${
+      className={`flex items-center px-36 h-20 bg-white ${
         !isSearchFocused ? "shadow-md" : "shadow-2xl"
       }`}
     >
       <div className="mr-4">
-        <img src="/logo.png" width="120" height="16" alt="Logo" />
+        <img src="/logo.png" width="120" height="8" alt="Logo" />
       </div>
       <DropdownMenu
         title="Kategoriler"
