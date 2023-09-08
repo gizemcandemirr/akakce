@@ -9,7 +9,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className='mx-auto h-screen bg-gray-100'>
       <Header />
-      <main>{children}</main>
+      <main className='mx-auto container mt-8'>{children}</main>
     </div>
   );
 };
