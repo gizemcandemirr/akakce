@@ -23,6 +23,7 @@ const ProductList = () => {
   const handleImageClick = (id: number) => {
     navigate(`/details/${id}`);
   };
+
   const fetchProducts = async (url: string) => {
     fetch(url)
       .then((response) => {
@@ -51,7 +52,7 @@ const ProductList = () => {
     if (nextUrl) {
       fetchProducts(nextUrl);
     }
-  }, []);
+  }, [nextUrl]);
 
   return (
     <div className="flex flex-col ">
