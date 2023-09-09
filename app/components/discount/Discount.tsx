@@ -1,6 +1,5 @@
 import ProductList from "../product-list/ProductList";
 const Discount = () => {
-
   return (
     <div>
       <div className="flex justify-between items-center">
