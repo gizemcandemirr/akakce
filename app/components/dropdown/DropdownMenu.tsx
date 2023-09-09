@@ -12,7 +12,6 @@ function DropdownMenu<T>({
   title,
   options,
   renderOption,
-  onOptionSelect,
 }: DropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,15 +20,17 @@ function DropdownMenu<T>({
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       className={`relative rounded-lg ${isOpen ? "bg-akYellow" : "bg-akBlue"}`}
+      id="dropdown-div"
+      data-testid="dropdown-div"
     >
       <button
         className={`px-4 py-3 flex items-center text-white w-28 text-sm ${
           isOpen && ""
         }`}
       >
-       <span>{title}</span> 
+        <span>{title}</span>
         <span className={` transform ${isOpen ? "rotate-180 " : ""}`}>
-          <DownIcon className="w-4 h-4 ml-1"/>
+          <DownIcon className="w-4 h-4 ml-1" />
         </span>
       </button>
 
@@ -46,9 +47,6 @@ function DropdownMenu<T>({
                 key={index}
                 className="block px-4 py-2 text-gray-700 text-sm hover:bg-akBlue hover:text-white cursor-pointer"
                 role="menuitem"
-                onClick={() => {
-                  onOptionSelect?.(option);
-                }}
               >
                 {renderOption(option)}
               </div>
