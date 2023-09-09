@@ -1,5 +1,5 @@
 import { useNavigate } from "@remix-run/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pagination } from "../pagination/Pagination";
 
 type Product = {
@@ -12,10 +12,9 @@ const ProductList = () => {
   const [horizontalProducts, setHorizontalProducts] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const navigate = useNavigate();
-  const [nextUrl, setNextUrl] = useState("https://mocki.io/v1/59906f35-d5d5-40f7-8d44-53fd26eb3a05");
-   
-  // Başlangıç URL'ini kullanarak ilk isteği atın
-  
+  const [nextUrl, setNextUrl] = useState<string | null>(
+    "https://mocki.io/v1/59906f35-d5d5-40f7-8d44-53fd26eb3a05"
+  );
   const [currentPage, setCurrentPage] = useState(1);
 
   const startIndex = (currentPage - 1) * 2;
@@ -25,42 +24,40 @@ const ProductList = () => {
     navigate(`/details/${id}`);
   };
 
-  const fetchProducts = async (
-    url: string,
-    setHorizontalProducts: Function,
-    setProducts: Function,
-    setNextUrl: Function
-  ) => {
-    try {
-      const response = await fetch(url);
-  
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-  
-      const data = await response.json();
-  
-      setHorizontalProducts((prev:any) => [
-        ...prev,
-        ...data.result.horizontalProducts,
-      ]);
-      setProducts((prev:any) => [...prev, ...data.result.products]);
-  
-      if (data.nextUrl) {
-        await fetchProducts(data.nextUrl, setHorizontalProducts, setProducts, setNextUrl);
-      } else {
-        setNextUrl(null);
-      }
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:");
-    }
+  const fetchProducts = async (url: string) => {
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setHorizontalProducts((prev) => [
+          ...prev,
+          ...data.result.horizontalProducts,
+        ]);
+        setProducts((prev) => [...prev, ...data.result.products]);
+        setNextUrl(data.nextUrl);
+      })
+      .catch((error) => {
+        console.error(
+          "There was a problem with the fetch operation:",
+          error.message
+        );
+      });
   };
-  fetchProducts(nextUrl, setHorizontalProducts, setProducts, setNextUrl);
+
+  useEffect(() => {
+    if (nextUrl) {
+      fetchProducts(nextUrl);
+    }
+  }, [nextUrl]);
 
   return (
     <div className="flex flex-col ">
       {/* Yatay ürün listesi */}
-      <div className="flex overflow-x-scroll space-x-4 w-full" >
+      <div className="flex overflow-x-scroll space-x-4 w-64" >
         {horizontalProducts?.map((product, index) => (
           <img
             key={index}
