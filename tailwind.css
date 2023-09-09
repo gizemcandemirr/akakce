@@ -8,7 +8,34 @@ html,body{
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 body {
     margin: 0;
     line-height: inherit;
+}
+
+.badge-special{
+    color: #4a4a4a;
+    font-size: .85em;
+    font-weight: bold;
+    line-height: 14px;
+    min-width: 96px;
+    min-height: 15px;
+    background-color: #fdf7cf;
+    padding: 2px 6px;
+    margin: 5px 0 2px -4px;
+    display: inline-block;
+    position: relative;
+}
+
+.badge-special::after {
+    content: "\20" !important;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -6px;
+    border: solid rgba(0,0,0,0);
+    border-width: 9px 3px 9px 3px;
+    border-top-color: #fdf7cf !important;
+    border-left-color: #fdf7cf !important;
 }

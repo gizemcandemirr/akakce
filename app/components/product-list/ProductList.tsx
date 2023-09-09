@@ -24,7 +24,6 @@ const ProductList = () => {
     navigate(`/details/${id}`);
   };
   const fetchProducts = async (url: string) => {
-    console.log("burası");
     fetch(url)
       .then((response) => {
         if (!response.ok) {

@@ -7,6 +7,7 @@ export default {
       colors: {
         akBlue: "#247ec5",
         akYellow: "#e59f36",
+        akGreen:"#006400"
       },
     },
   },
