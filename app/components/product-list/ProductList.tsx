@@ -24,17 +24,14 @@ const ProductList = () => {
     navigate(`/details/${id}`);
   };
   const fetchProducts = async (url: string) => {
-    console.log("burası");
     fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        console.log(response);
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setHorizontalProducts((prev) => [
           ...prev,
           ...data.result.horizontalProducts,
@@ -43,7 +40,7 @@ const ProductList = () => {
         setNextUrl(data.nextUrl);
       })
       .catch((error) => {
-        console.log(
+        console.error(
           "There was a problem with the fetch operation:",
           error.message
         );
