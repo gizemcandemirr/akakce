@@ -1,40 +1,37 @@
-> **Warning**  
-> The `@remix-run/vercel` runtime adapter has been deprecated in favor of out of
-> the box Vercel functionality and will be removed in Remix v2.  
-> This means you don't have to use the Vercel template & can just use the Remix
-> template instead.
+# Ürün Listesi ve Detay Projesi
 
-# Welcome to Remix!
+Bu proje, React Remix, TypeScript ve Tailwind ile oluşturulmuştur. Ürünlerin bir listesi ve seçilen her ürünün detay bilgilerini göstermek için tasarlanmıştır.
 
-- [Remix Docs](https://remix.run/docs)
+## Kurulum
 
-## Deployment
+1. Projeyi klonlayın:
+   
+   ```bash
+   git clone https://github.com/mhndsbgyn/case-study
+   
+2. Bağımlılıkları yükleyin:
 
-After having run the `create-remix` command and selected "Vercel" as a deployment target, you only need to [import your Git repository](https://vercel.com/new) into Vercel, and it will be deployed.
+   ```bash
+   npm i
+   
+3. Projeyi yerelde çalıştırın:
 
-If you'd like to avoid using a Git repository, you can also deploy the directory by running [Vercel CLI](https://vercel.com/cli):
+   ```bash
+   npm run dev
+   
+Bu komut, uygulamayı geliştirme modunda başlatır. Tarayıcınızda http://localhost:3000 adresini açarak görüntüleyebilirsiniz.
 
-```sh
-npm i -g vercel
-vercel
-```
+## Özellikler
 
-It is generally recommended to use a Git repository, because future commits will then automatically be deployed by Vercel, through its [Git Integration](https://vercel.com/docs/concepts/git).
+* Ürün Listesi: Anasayfada tüm ürünlerin bir listesi gösterilmektedir.
+* Ürün Detayı: Her bir ürünün üzerine tıklanarak detay bilgileri görüntülenebilir.
 
-## Development
+## Teknolojiler
 
-To run your Remix app locally, make sure your project's local dependencies are installed:
+* React Remix
+* TypeScript
+* Tailwind CSS
 
-```sh
-npm install
-```
+## Katkıda Bulunma
+Projeye katkıda bulunmak isterseniz, lütfen öncelikle bir issue oluşturun. Daha sonra, değişikliklerinizi yapın ve bir pull request gönderin.
 
-Afterwards, start the Remix development server like so:
-
-```sh
-npm run dev
-```
-
-Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!
-
-If you're used to using the `vercel dev` command provided by [Vercel CLI](https://vercel.com/cli) instead, you can also use that, but it's not needed.
