@@ -57,7 +57,7 @@ const ProductList = () => {
   return (
     <div className="flex flex-col ">
       {/* Yatay ürün listesi */}
-      <div className="flex overflow-x-scroll space-x-4 w-64" >
+      <div className="flex overflow-x-scroll space-x-4 w-full" >
         {horizontalProducts?.map((product, index) => (
           <img
             key={index}
