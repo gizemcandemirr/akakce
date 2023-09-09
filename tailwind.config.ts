@@ -1,14 +1,14 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
 export default {
-  content: ['./app/**/*.{js,jsx,ts,tsx}'],
+  content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        akBlue:"#247ec5",
-        akYellow:"#e59f36"
-      }
+        akBlue: "#247ec5",
+        akYellow: "#e59f36",
+      },
     },
   },
-  plugins: [],
-} satisfies Config
+  plugins: [require("tailwind-scrollbar")],
+} satisfies Config;

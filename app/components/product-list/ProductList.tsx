@@ -1,12 +1,12 @@
 import { useNavigate } from "@remix-run/react";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect } from "react";
+import { Pagination } from "../pagination/Pagination";
 
 type Product = {
   id: string;
   imageUrl: string;
   code: number;
 };
-
 
 const ProductList = () => {
   const [horizontalProducts, setHorizontalProducts] = useState<Product[]>([]);
@@ -15,14 +15,16 @@ const ProductList = () => {
   const [nextUrl, setNextUrl] = useState<string | null>(
     "https://mocki.io/v1/59906f35-d5d5-40f7-8d44-53fd26eb3a05"
   );
-  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const startIndex = (currentPage - 1) * 2;
+  const selectedImages = products?.slice(startIndex, startIndex + 2);
 
   const handleImageClick = (id: number) => {
     navigate(`/details/${id}`);
   };
   const fetchProducts = async (url: string) => {
     console.log("burası");
-    setLoading(true);
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -37,12 +39,8 @@ const ProductList = () => {
           ...prev,
           ...data.result.horizontalProducts,
         ]);
-        setProducts((prev) => [
-            ...prev,
-            ...data.result.products,
-          ]);
+        setProducts((prev) => [...prev, ...data.result.products]);
         setNextUrl(data.nextUrl);
-        setLoading(false);
       })
       .catch((error) => {
         console.log(
@@ -52,63 +50,47 @@ const ProductList = () => {
       });
   };
 
-  const observer = useRef<IntersectionObserver | null>(null);
-
-  const lastProductRef = useCallback(
-    (node: any) => {
-      if (loading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && nextUrl) {
-          fetchProducts(nextUrl);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading, nextUrl]
-  );
-
   useEffect(() => {
     if (nextUrl) {
       fetchProducts(nextUrl);
     }
   }, []);
+
   return (
     <div className="flex flex-col ">
       {/* Yatay ürün listesi */}
-      <div className="flex overflow-x-auto w-full ">
+      <div className="flex overflow-x-scroll space-x-4 w-full">
         {horizontalProducts?.map((product, index) => (
-          <div
-            key={product.code}
-            ref={
-              index === horizontalProducts.length - 1 ? lastProductRef : null
-            }
-            className="scroll-ml-6 snap-start w-[250px]"
-          >
-            <img
-              src={product?.imageUrl}
-              width="250"
-              height="100"
-              alt="Product"
-              onClick={() => handleImageClick(product.code)}
-            />
-          </div>
+          <img
+            key={index}
+            src={product?.imageUrl}
+            width="250"
+            height="100"
+            alt="Product"
+            onClick={() => handleImageClick(product.code)}
+          />
         ))}
       </div>
 
       {/* 2'li dikey ürün listesi */}
-      <div className="grid grid-cols-2 gap-4">
-        {products?.map((product) => (
-          <div key={product.code}>
+      <div className="container mx-auto p-4 mt-4">
+        <div className="grid grid-cols-2 gap-4">
+          {selectedImages.map((image) => (
             <img
-              src={product?.imageUrl}
-              width="150"
-              height="120"
+              key={image.id}
+              src={image.imageUrl}
               alt="Product"
-              onClick={() => handleImageClick(product.code)}
+              className="w-64 h-fit object-cover"
+              onClick={() => handleImageClick(image.code)}
             />
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <Pagination
+          total={products.length}
+          current={currentPage}
+          onChange={(page) => setCurrentPage(page)}
+        />
       </div>
     </div>
   );

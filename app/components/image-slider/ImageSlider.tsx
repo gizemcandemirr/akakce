@@ -10,7 +10,6 @@ const ImageSlider = () => {
         <div className="p-20 bg-akBlue text-white font-bold text-xl">3</div>
         <div className="p-20 bg-akBlue text-white font-bold text-xl">4</div>
         <div className="p-20 bg-akBlue text-white font-bold text-xl">5</div>
-        <div className="p-20 bg-akBlue text-white font-bold text-xl">6</div>
       </div>
     </div>
   );

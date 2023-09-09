@@ -7,7 +7,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className=' max-h-screen h-screen container mx-auto'>
+    <div className=' max-h-screen h-screen'>
       <Header />
       <main className='mx-auto container mt-8 h-screen'>{children}</main>
     </div>
